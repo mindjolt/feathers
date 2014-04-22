@@ -9,7 +9,8 @@ package feathers.core
 {
 	import feathers.controls.text.BitmapFontTextRenderer;
 	import feathers.controls.text.StageTextTextEditor;
-	import feathers.events.FeathersEventType;
+import feathers.controls.text.TextFieldTextRenderer;
+import feathers.events.FeathersEventType;
 	import feathers.layout.ILayoutData;
 	import feathers.layout.ILayoutDisplayObject;
 	import feathers.skins.IStyleProvider;
@@ -213,7 +214,7 @@ import starling.core.Starling;
 		 */
 		public static var defaultTextRendererFactory:Function = function():ITextRenderer
 		{
-			return new BitmapFontTextRenderer();
+			return new TextFieldTextRenderer();
 		}
 
 		/**
