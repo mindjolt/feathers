@@ -19,7 +19,9 @@ package feathers.core
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 
-	import starling.core.Starling;
+import plexonic.stage3d.SmartStarling;
+
+import starling.core.Starling;
 	import starling.display.DisplayObject;
 	import starling.display.Sprite;
 	import starling.events.Event;
@@ -1828,7 +1830,7 @@ package feathers.core
 		protected function feathersControl_addedToStageHandler(event:Event):void
 		{
 			this._depth = getDisplayObjectDepthFromStage(this);
-			this._validationQueue = ValidationQueue.forStarling(Starling.current);
+			this._validationQueue = ValidationQueue.forStarling(SmartStarling.current);
 
 			if(!this._isInitialized)
 			{

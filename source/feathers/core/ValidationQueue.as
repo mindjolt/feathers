@@ -9,7 +9,9 @@ package feathers.core
 {
 	import flash.utils.Dictionary;
 
-	import starling.animation.IAnimatable;
+import plexonic.stage3d.SmartStarling;
+
+import starling.animation.IAnimatable;
 	import starling.core.Starling;
 
 	[ExcludeClass]
@@ -25,7 +27,7 @@ package feathers.core
 		 * a validation queue does not exist for the specified Starling
 		 * instance, a new one will be created.
 		 */
-		public static function forStarling(starling:Starling):ValidationQueue
+		public static function forStarling(starling:SmartStarling):ValidationQueue
 		{
 			if(!starling)
 			{
@@ -42,12 +44,12 @@ package feathers.core
 		/**
 		 * Constructor.
 		 */
-		public function ValidationQueue(starling:Starling)
+		public function ValidationQueue(starling:SmartStarling)
 		{
 			this._starling = starling;
 		}
 
-		private var _starling:Starling;
+		private var _starling:SmartStarling;
 
 		private var _isValidating:Boolean = false;
 
@@ -77,7 +79,7 @@ package feathers.core
 		{
 			if(this._starling)
 			{
-				this._starling.juggler.remove(this);
+				this._starling.defaultJuggler.remove(this);
 				this._starling = null;
 			}
 		}
@@ -88,10 +90,8 @@ package feathers.core
 		public function addControl(control:IValidating, delayIfValidating:Boolean):void
 		{
 			//if the juggler was purged, we need to add the queue back in.
-			if(!this._starling.juggler.contains(this))
-			{
-				this._starling.juggler.add(this);
-			}
+		    this._starling.defaultJuggler.add(this);
+
 			var currentQueue:Vector.<IValidating> = (this._isValidating && delayIfValidating) ? this._delayedQueue : this._queue;
 			if(currentQueue.indexOf(control) >= 0)
 			{
