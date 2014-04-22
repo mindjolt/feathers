@@ -15,6 +15,7 @@ package feathers.controls
 	import feathers.core.IValidating;
 	import feathers.core.PropertyProxy;
 	import feathers.events.FeathersEventType;
+	import feathers.skins.IStyleProvider;
 	import feathers.skins.StateValueSelector;
 
 	import flash.geom.Point;
@@ -30,6 +31,21 @@ package feathers.controls
 	/**
 	 * Dispatched when the text input's <code>text</code> property changes.
 	 *
+	 * <p>The properties of the event object have the following values:</p>
+	 * <table class="innertable">
+	 * <tr><th>Property</th><th>Value</th></tr>
+	 * <tr><td><code>bubbles</code></td><td>false</td></tr>
+	 * <tr><td><code>currentTarget</code></td><td>The Object that defines the
+	 *   event listener that handles the event. For example, if you use
+	 *   <code>myButton.addEventListener()</code> to register an event listener,
+	 *   myButton is the value of the <code>currentTarget</code>.</td></tr>
+	 * <tr><td><code>data</code></td><td>null</td></tr>
+	 * <tr><td><code>target</code></td><td>The Object that dispatched the event;
+	 *   it is not always the Object listening for the event. Use the
+	 *   <code>currentTarget</code> property to always access the Object
+	 *   listening for the event.</td></tr>
+	 * </table>
+	 *
 	 * @eventType starling.events.Event.CHANGE
 	 */
 	[Event(name="change",type="starling.events.Event")]
@@ -43,6 +59,21 @@ package feathers.controls
 	 * please see the specific text editor's API documentation for complete
 	 * details of this event's limitations and requirements.
 	 *
+	 * <p>The properties of the event object have the following values:</p>
+	 * <table class="innertable">
+	 * <tr><th>Property</th><th>Value</th></tr>
+	 * <tr><td><code>bubbles</code></td><td>false</td></tr>
+	 * <tr><td><code>currentTarget</code></td><td>The Object that defines the
+	 *   event listener that handles the event. For example, if you use
+	 *   <code>myButton.addEventListener()</code> to register an event listener,
+	 *   myButton is the value of the <code>currentTarget</code>.</td></tr>
+	 * <tr><td><code>data</code></td><td>null</td></tr>
+	 * <tr><td><code>target</code></td><td>The Object that dispatched the event;
+	 *   it is not always the Object listening for the event. Use the
+	 *   <code>currentTarget</code> property to always access the Object
+	 *   listening for the event.</td></tr>
+	 * </table>
+	 *
 	 * @eventType feathers.events.FeathersEventType.ENTER
 	 */
 	[Event(name="enter",type="starling.events.Event")]
@@ -50,12 +81,42 @@ package feathers.controls
 	/**
 	 * Dispatched when the text input receives focus.
 	 *
+	 * <p>The properties of the event object have the following values:</p>
+	 * <table class="innertable">
+	 * <tr><th>Property</th><th>Value</th></tr>
+	 * <tr><td><code>bubbles</code></td><td>false</td></tr>
+	 * <tr><td><code>currentTarget</code></td><td>The Object that defines the
+	 *   event listener that handles the event. For example, if you use
+	 *   <code>myButton.addEventListener()</code> to register an event listener,
+	 *   myButton is the value of the <code>currentTarget</code>.</td></tr>
+	 * <tr><td><code>data</code></td><td>null</td></tr>
+	 * <tr><td><code>target</code></td><td>The Object that dispatched the event;
+	 *   it is not always the Object listening for the event. Use the
+	 *   <code>currentTarget</code> property to always access the Object
+	 *   listening for the event.</td></tr>
+	 * </table>
+	 *
 	 * @eventType feathers.events.FeathersEventType.FOCUS_IN
 	 */
 	[Event(name="focusIn",type="starling.events.Event")]
 
 	/**
 	 * Dispatched when the text input loses focus.
+	 *
+	 * <p>The properties of the event object have the following values:</p>
+	 * <table class="innertable">
+	 * <tr><th>Property</th><th>Value</th></tr>
+	 * <tr><td><code>bubbles</code></td><td>false</td></tr>
+	 * <tr><td><code>currentTarget</code></td><td>The Object that defines the
+	 *   event listener that handles the event. For example, if you use
+	 *   <code>myButton.addEventListener()</code> to register an event listener,
+	 *   myButton is the value of the <code>currentTarget</code>.</td></tr>
+	 * <tr><td><code>data</code></td><td>null</td></tr>
+	 * <tr><td><code>target</code></td><td>The Object that dispatched the event;
+	 *   it is not always the Object listening for the event. Use the
+	 *   <code>currentTarget</code> property to always access the Object
+	 *   listening for the event.</td></tr>
+	 * </table>
 	 *
 	 * @eventType feathers.events.FeathersEventType.FOCUS_OUT
 	 */
@@ -65,6 +126,21 @@ package feathers.controls
 	 * Dispatched when the soft keyboard is activated by the text editor. Not
 	 * all text editors will activate a soft keyboard.
 	 *
+	 * <p>The properties of the event object have the following values:</p>
+	 * <table class="innertable">
+	 * <tr><th>Property</th><th>Value</th></tr>
+	 * <tr><td><code>bubbles</code></td><td>false</td></tr>
+	 * <tr><td><code>currentTarget</code></td><td>The Object that defines the
+	 *   event listener that handles the event. For example, if you use
+	 *   <code>myButton.addEventListener()</code> to register an event listener,
+	 *   myButton is the value of the <code>currentTarget</code>.</td></tr>
+	 * <tr><td><code>data</code></td><td>null</td></tr>
+	 * <tr><td><code>target</code></td><td>The Object that dispatched the event;
+	 *   it is not always the Object listening for the event. Use the
+	 *   <code>currentTarget</code> property to always access the Object
+	 *   listening for the event.</td></tr>
+	 * </table>
+	 *
 	 * @eventType feathers.events.FeathersEventType.SOFT_KEYBOARD_ACTIVATE
 	 */
 	[Event(name="softKeyboardActivate",type="starling.events.Event")]
@@ -72,6 +148,21 @@ package feathers.controls
 	/**
 	 * Dispatched when the soft keyboard is deactivated by the text editor. Not
 	 * all text editors will activate a soft keyboard.
+	 *
+	 * <p>The properties of the event object have the following values:</p>
+	 * <table class="innertable">
+	 * <tr><th>Property</th><th>Value</th></tr>
+	 * <tr><td><code>bubbles</code></td><td>false</td></tr>
+	 * <tr><td><code>currentTarget</code></td><td>The Object that defines the
+	 *   event listener that handles the event. For example, if you use
+	 *   <code>myButton.addEventListener()</code> to register an event listener,
+	 *   myButton is the value of the <code>currentTarget</code>.</td></tr>
+	 * <tr><td><code>data</code></td><td>null</td></tr>
+	 * <tr><td><code>target</code></td><td>The Object that dispatched the event;
+	 *   it is not always the Object listening for the event. Use the
+	 *   <code>currentTarget</code> property to always access the Object
+	 *   listening for the event.</td></tr>
+	 * </table>
 	 *
 	 * @eventType feathers.events.FeathersEventType.SOFT_KEYBOARD_DEACTIVATE
 	 */
@@ -107,6 +198,11 @@ package feathers.controls
 		private static const HELPER_POINT:Point = new Point();
 
 		/**
+		 * @private
+		 */
+		protected static const INVALIDATION_FLAG_PROMPT_FACTORY:String = "promptFactory";
+
+		/**
 		 * The <code>TextInput</code> is enabled and does not have focus.
 		 */
 		public static const STATE_ENABLED:String = "enabled";
@@ -136,7 +232,7 @@ package feathers.controls
 		 *
 		 * <listing version="3.0">
 		 * var input:TextInput = new TextInput();
-		 * input.nameList.add( TextInput.ALTERNATE_NAME_SEARCH_TEXT_INPUT );
+		 * input.styleNameList.add( TextInput.ALTERNATE_NAME_SEARCH_TEXT_INPUT );
 		 * this.addChild( input );</listing>
 		 *
 		 * @see feathers.core.IFeathersControl#nameList
@@ -144,15 +240,52 @@ package feathers.controls
 		public static const ALTERNATE_NAME_SEARCH_TEXT_INPUT:String = "feathers-search-text-input";
 
 		/**
-		 * @private
+		 * The text editor will be aligned vertically to the top edge of the
+		 * text input.
+		 *
+		 * @see #verticalAlign
 		 */
-		protected static const INVALIDATION_FLAG_PROMPT_FACTORY:String = "promptFactory";
+		public static const VERTICAL_ALIGN_TOP:String = "top";
+
+		/**
+		 * The text editor will be aligned vertically to the middle of the text
+		 * input.
+		 *
+		 * @see #verticalAlign
+		 */
+		public static const VERTICAL_ALIGN_MIDDLE:String = "middle";
+
+		/**
+		 * The text editor will be aligned vertically to the bottom edge of the
+		 * text input.
+		 *
+		 * @see #verticalAlign
+		 */
+		public static const VERTICAL_ALIGN_BOTTOM:String = "bottom";
+
+		/**
+		 * The text editor will fill the full height of the text input (minus
+		 * top and bottom padding).
+		 *
+		 * @see #verticalAlign
+		 */
+		public static const VERTICAL_ALIGN_JUSTIFY:String = "justify";
+
+		/**
+		 * The default <code>IStyleProvider</code> for all <code>TextInput</code>
+		 * components.
+		 *
+		 * @default null
+		 * @see feathers.core.FeathersControl#styleProvider
+		 */
+		public static var styleProvider:IStyleProvider;
 
 		/**
 		 * Constructor.
 		 */
 		public function TextInput()
 		{
+			super();
 			this.isQuickHitAreaEnabled = true;
 			this.addEventListener(TouchEvent.TOUCH, textInput_touchHandler);
 			this.addEventListener(Event.REMOVED_FROM_STAGE, textInput_removedFromStageHandler);
@@ -205,9 +338,31 @@ package feathers.controls
 		/**
 		 * @private
 		 */
+		override protected function get defaultStyleProvider():IStyleProvider
+		{
+			return TextInput.styleProvider;
+		}
+
+		/**
+		 * @private
+		 */
 		override public function get isFocusEnabled():Boolean
 		{
 			return this._isEditable && this._isFocusEnabled;
+		}
+
+		/**
+		 * When the <code>FocusManager</code> isn't enabled, <code>hasFocus</code>
+		 * can be used instead of <code>FocusManager.focus == textInput</code>
+		 * to determine if the text input has focus.
+		 */
+		public function get hasFocus():Boolean
+		{
+			if(!this._focusManager)
+			{
+				return this._textEditorHasFocus;
+			}
+			return this._hasFocus;
 		}
 
 		/**
@@ -1263,6 +1418,46 @@ package feathers.controls
 
 		/**
 		 * @private
+		 */
+		protected var _verticalAlign:String = VERTICAL_ALIGN_MIDDLE;
+
+		[Inspectable(type="String",enumeration="top,middle,bottom,justify")]
+		/**
+		 * The location where the text editor is aligned vertically (on
+		 * the y-axis).
+		 *
+		 * <p>The following example aligns the text editor to the top:</p>
+		 *
+		 * <listing version="3.0">
+		 * input.verticalAlign = TextInput.VERTICAL_ALIGN_TOP;</listing>
+		 *
+		 * @default TextInput.VERTICAL_ALIGN_MIDDLE
+		 *
+		 * @see #VERTICAL_ALIGN_TOP
+		 * @see #VERTICAL_ALIGN_MIDDLE
+		 * @see #VERTICAL_ALIGN_BOTTOM
+		 * @see #VERTICAL_ALIGN_JUSTIFY
+		 */
+		public function get verticalAlign():String
+		{
+			return _verticalAlign;
+		}
+
+		/**
+		 * @private
+		 */
+		public function set verticalAlign(value:String):void
+		{
+			if(this._verticalAlign == value)
+			{
+				return;
+			}
+			this._verticalAlign = value;
+			this.invalidate(INVALIDATION_FLAG_STYLES);
+		}
+
+		/**
+		 * @private
 		 * Flag indicating that the text editor should get focus after it is
 		 * created.
 		 */
@@ -1505,6 +1700,11 @@ package feathers.controls
 				this.promptTextRenderer.visible = this._prompt && this._text.length == 0;
 			}
 
+			if(promptFactoryInvalid || stateInvalid)
+			{
+				this.promptTextRenderer.isEnabled = this._isEnabled;
+			}
+
 			if(textEditorInvalid || stateInvalid)
 			{
 				this.textEditor.isEnabled = this._isEnabled;
@@ -1565,7 +1765,9 @@ package feathers.controls
 			var typicalTextHeight:Number = 0;
 			if(this._typicalText)
 			{
-				const oldIgnoreTextChanges:Boolean = this._ignoreTextChanges;
+				var oldTextEditorWidth:Number = this.textEditor.width;
+				var oldTextEditorHeight:Number = this.textEditor.height;
+				var oldIgnoreTextChanges:Boolean = this._ignoreTextChanges;
 				this._ignoreTextChanges = true;
 				this.textEditor.setSize(NaN, NaN);
 				this.textEditor.text = this._typicalText;
@@ -1594,10 +1796,10 @@ package feathers.controls
 				newHeight = Math.max(this._originalSkinHeight, typicalTextHeight + this._paddingTop + this._paddingBottom);
 			}
 
-			if(this._typicalText)
+			if(this._typicalText && this._verticalAlign == VERTICAL_ALIGN_JUSTIFY)
 			{
-				this.textEditor.width = this.actualWidth - this._paddingLeft - this._paddingRight;
-				this.textEditor.height = this.actualHeight - this._paddingTop - this._paddingBottom;
+				this.textEditor.width = oldTextEditorWidth;
+				this.textEditor.height = oldTextEditorHeight;
 			}
 
 			return this.setSizeInternal(newWidth, newHeight, false);
@@ -1814,7 +2016,6 @@ package feathers.controls
 			if(this.currentIcon)
 			{
 				this.currentIcon.x = this._paddingLeft;
-				this.currentIcon.y = this._paddingTop + (this.actualHeight - this._paddingTop - this._paddingBottom - this.currentIcon.height) / 2;
 				this.textEditor.x = this.currentIcon.x + this.currentIcon.width + this._gap;
 				this.promptTextRenderer.x = this.currentIcon.x + this.currentIcon.width + this._gap;
 			}
@@ -1823,13 +2024,56 @@ package feathers.controls
 				this.textEditor.x = this._paddingLeft;
 				this.promptTextRenderer.x = this._paddingLeft;
 			}
-			this.textEditor.y = this._paddingTop;
 			this.textEditor.width = this.actualWidth - this._paddingRight - this.textEditor.x;
-			this.textEditor.height = this.actualHeight - this._paddingTop - this._paddingBottom;
-
-			this.promptTextRenderer.y = this._paddingTop;
 			this.promptTextRenderer.width = this.actualWidth - this._paddingRight - this.promptTextRenderer.x;
-			this.promptTextRenderer.height = this.actualHeight - this._paddingTop - this._paddingBottom;
+
+			this.textEditor.validate();
+			this.promptTextRenderer.validate();
+
+			switch(this._verticalAlign)
+			{
+				case VERTICAL_ALIGN_JUSTIFY:
+				{
+					this.textEditor.y = this._paddingTop;
+					this.textEditor.height = this.actualHeight - this._paddingTop - this._paddingBottom;
+					this.promptTextRenderer.y = this._paddingTop;
+					this.promptTextRenderer.height = this.actualHeight - this._paddingTop - this._paddingBottom;
+					if(this.currentIcon)
+					{
+						this.currentIcon.y = this._paddingTop;
+					}
+					break;
+				}
+				case VERTICAL_ALIGN_TOP:
+				{
+					this.textEditor.y = this._paddingTop;
+					this.promptTextRenderer.y = this._paddingTop;
+					if(this.currentIcon)
+					{
+						this.currentIcon.y = this._paddingTop;
+					}
+					break;
+				}
+				case VERTICAL_ALIGN_BOTTOM:
+				{
+					this.textEditor.y = this.actualHeight - this._paddingBottom - this.textEditor.height;
+					this.promptTextRenderer.y = this.actualHeight - this._paddingBottom - this.promptTextRenderer.height;
+					if(this.currentIcon)
+					{
+						this.currentIcon.y = this.actualHeight - this._paddingBottom - this.currentIcon.height;
+					}
+					break;
+				}
+				default:
+				{
+					this.textEditor.y = this._paddingTop + (this.actualHeight - this._paddingTop - this._paddingBottom - this.textEditor.height) / 2;
+					this.promptTextRenderer.y = this._paddingTop + (this.actualHeight - this._paddingTop - this._paddingBottom - this.promptTextRenderer.height) / 2;
+					if(this.currentIcon)
+					{
+						this.currentIcon.y = this._paddingTop + (this.actualHeight - this._paddingTop - this._paddingBottom - this.currentIcon.height) / 2;
+					}
+				}
+			}
 		}
 
 		/**

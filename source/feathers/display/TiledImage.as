@@ -27,6 +27,26 @@ import starling.core.Starling;
 	import starling.textures.TextureSmoothing;
 	import starling.utils.MatrixUtil;
 
+	[Exclude(name="numChildren",kind="property")]
+	[Exclude(name="isFlattened",kind="property")]
+	[Exclude(name="addChild",kind="method")]
+	[Exclude(name="addChildAt",kind="method")]
+	[Exclude(name="broadcastEvent",kind="method")]
+	[Exclude(name="broadcastEventWith",kind="method")]
+	[Exclude(name="contains",kind="method")]
+	[Exclude(name="getChildAt",kind="method")]
+	[Exclude(name="getChildByName",kind="method")]
+	[Exclude(name="getChildIndex",kind="method")]
+	[Exclude(name="removeChild",kind="method")]
+	[Exclude(name="removeChildAt",kind="method")]
+	[Exclude(name="removeChildren",kind="method")]
+	[Exclude(name="setChildIndex",kind="method")]
+	[Exclude(name="sortChildren",kind="method")]
+	[Exclude(name="swapChildren",kind="method")]
+	[Exclude(name="swapChildrenAt",kind="method")]
+	[Exclude(name="flatten",kind="method")]
+	[Exclude(name="unflatten",kind="method")]
+
 	/**
 	 * Tiles a texture to fill the specified bounds.
 	 */
@@ -41,7 +61,7 @@ import starling.core.Starling;
 		 * @private
 		 */
 		private static const HELPER_MATRIX:Matrix = new Matrix();
-		
+
 		/**
 		 * Constructor.
 		 */
@@ -63,7 +83,7 @@ import starling.core.Starling;
 
 		private var _propertiesChanged:Boolean = true;
 		private var _layoutChanged:Boolean = true;
-		
+
 		private var _hitArea:Rectangle;
 
 		private var _batch:QuadBatch;
@@ -71,12 +91,12 @@ import starling.core.Starling;
 
 		private var _originalImageWidth:Number;
 		private var _originalImageHeight:Number;
-		
+
 		/**
 		 * @private
 		 */
 		private var _width:Number = NaN;
-		
+
 		/**
 		 * @private
 		 */
@@ -84,7 +104,7 @@ import starling.core.Starling;
 		{
 			return this._width;
 		}
-		
+
 		/**
 		 * @private
 		 */
@@ -98,12 +118,12 @@ import starling.core.Starling;
 			this._layoutChanged = true;
 			this.invalidate();
 		}
-		
+
 		/**
 		 * @private
 		 */
 		private var _height:Number = NaN;
-		
+
 		/**
 		 * @private
 		 */
@@ -111,7 +131,7 @@ import starling.core.Starling;
 		{
 			return this._height;
 		}
-		
+
 		/**
 		 * @private
 		 */
@@ -125,12 +145,12 @@ import starling.core.Starling;
 			this._layoutChanged = true;
 			this.invalidate();
 		}
-		
+
 		/**
 		 * @private
 		 */
 		private var _texture:Texture;
-		
+
 		/**
 		 * The texture to tile.
 		 *
@@ -143,12 +163,12 @@ import starling.core.Starling;
 		{
 			return this._texture;
 		}
-		
+
 		/**
 		 * @private
 		 */
-		public function set texture(value:Texture):void 
-		{ 
+		public function set texture(value:Texture):void
+		{
 			if(value == null)
 			{
 				throw new ArgumentError("Texture cannot be null");
@@ -182,12 +202,12 @@ import starling.core.Starling;
 			this._layoutChanged = true;
 			this.invalidate();
 		}
-		
+
 		/**
 		 * @private
 		 */
 		private var _smoothing:String = TextureSmoothing.BILINEAR;
-		
+
 		/**
 		 * The smoothing value to pass to the tiled images.
 		 *
@@ -204,11 +224,11 @@ import starling.core.Starling;
 		{
 			return this._smoothing;
 		}
-		
+
 		/**
 		 * @private
 		 */
-		public function set smoothing(value:String):void 
+		public function set smoothing(value:String):void
 		{
 			if(TextureSmoothing.isValid(value))
 			{
@@ -290,12 +310,12 @@ import starling.core.Starling;
 			this._propertiesChanged = true;
 			this.invalidate();
 		}
-		
+
 		/**
 		 * @private
 		 */
 		private var _textureScale:Number = 1;
-		
+
 		/**
 		 * The amount to scale the texture. Useful for DPI changes.
 		 *
@@ -310,7 +330,7 @@ import starling.core.Starling;
 		{
 			return this._textureScale;
 		}
-		
+
 		/**
 		 * @private
 		 */
@@ -352,7 +372,7 @@ import starling.core.Starling;
 		{
 			return this._depth;
 		}
-		
+
 		/**
 		 * @private
 		 */
@@ -362,10 +382,10 @@ import starling.core.Starling;
 			{
 				resultRect = new Rectangle();
 			}
-			
+
 			var minX:Number = Number.MAX_VALUE, maxX:Number = -Number.MAX_VALUE;
 			var minY:Number = Number.MAX_VALUE, maxY:Number = -Number.MAX_VALUE;
-			
+
 			if (targetSpace == this) // optimization
 			{
 				minX = this._hitArea.x;
@@ -401,15 +421,15 @@ import starling.core.Starling;
 				minY = minY < HELPER_POINT.y ? minY : HELPER_POINT.y;
 				maxY = maxY > HELPER_POINT.y ? maxY : HELPER_POINT.y;
 			}
-			
+
 			resultRect.x = minX;
 			resultRect.y = minY;
 			resultRect.width  = maxX - minX;
 			resultRect.height = maxY - minY;
-			
+
 			return resultRect;
 		}
-		
+
 		/**
 		 * @private
 		 */
@@ -421,7 +441,7 @@ import starling.core.Starling;
 			}
 			return this._hitArea.containsPoint(localPoint) ? this : null;
 		}
-		
+
 		/**
 		 * Set both the width and height in one call.
 		 */

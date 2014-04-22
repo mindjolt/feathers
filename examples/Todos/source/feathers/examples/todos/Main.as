@@ -11,6 +11,7 @@ package feathers.examples.todos
 	import feathers.examples.todos.controls.TodoItemRenderer;
 	import feathers.layout.AnchorLayout;
 	import feathers.layout.AnchorLayoutData;
+	import feathers.themes.MetalWorksMobileTheme;
 
 	import starling.display.DisplayObject;
 	import starling.events.Event;
@@ -60,7 +61,7 @@ package feathers.examples.todos
 			if(!this._toolbar)
 			{
 				this._toolbar = new ScrollContainer();
-				this._toolbar.nameList.add(ScrollContainer.ALTERNATE_NAME_TOOLBAR);
+				this._toolbar.styleNameList.add(ScrollContainer.ALTERNATE_NAME_TOOLBAR);
 			}
 			else
 			{
@@ -81,7 +82,7 @@ package feathers.examples.todos
 
 		private function initializeHandler():void
 		{
-			new TodosTheme();
+			new MetalWorksMobileTheme();
 
 			this.width = this.stage.stageWidth;
 			this.height = this.stage.stageHeight;

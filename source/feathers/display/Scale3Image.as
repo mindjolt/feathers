@@ -29,6 +29,26 @@ import starling.core.Starling;
 	import starling.textures.TextureSmoothing;
 	import starling.utils.MatrixUtil;
 
+	[Exclude(name="numChildren",kind="property")]
+	[Exclude(name="isFlattened",kind="property")]
+	[Exclude(name="addChild",kind="method")]
+	[Exclude(name="addChildAt",kind="method")]
+	[Exclude(name="broadcastEvent",kind="method")]
+	[Exclude(name="broadcastEventWith",kind="method")]
+	[Exclude(name="contains",kind="method")]
+	[Exclude(name="getChildAt",kind="method")]
+	[Exclude(name="getChildByName",kind="method")]
+	[Exclude(name="getChildIndex",kind="method")]
+	[Exclude(name="removeChild",kind="method")]
+	[Exclude(name="removeChildAt",kind="method")]
+	[Exclude(name="removeChildren",kind="method")]
+	[Exclude(name="setChildIndex",kind="method")]
+	[Exclude(name="sortChildren",kind="method")]
+	[Exclude(name="swapChildren",kind="method")]
+	[Exclude(name="swapChildrenAt",kind="method")]
+	[Exclude(name="flatten",kind="method")]
+	[Exclude(name="unflatten",kind="method")]
+
 	/**
 	 * Scales an image like a "pill" shape with three regions, either
 	 * horizontally or vertically. The edge regions scale while maintaining
@@ -85,7 +105,7 @@ import starling.core.Starling;
 		 * @private
 		 */
 		private var _layoutChanged:Boolean = true;
-		
+
 		/**
 		 * @private
 		 */

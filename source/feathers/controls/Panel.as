@@ -11,6 +11,7 @@ package feathers.controls
 	import feathers.core.IFocusExtras;
 	import feathers.core.PropertyProxy;
 	import feathers.events.FeathersEventType;
+	import feathers.skins.IStyleProvider;
 
 	import starling.display.DisplayObject;
 	import starling.events.Event;
@@ -140,6 +141,29 @@ package feathers.controls
 		public static const INTERACTION_MODE_TOUCH_AND_SCROLL_BARS:String = "touchAndScrollBars";
 
 		/**
+		 * @copy feathers.controls.Scroller#DECELERATION_RATE_NORMAL
+		 *
+		 * @see feathers.controls.Scroller#decelerationRate
+		 */
+		public static const DECELERATION_RATE_NORMAL:Number = 0.998;
+
+		/**
+		 * @copy feathers.controls.Scroller#DECELERATION_RATE_FAST
+		 *
+		 * @see feathers.controls.Scroller#decelerationRate
+		 */
+		public static const DECELERATION_RATE_FAST:Number = 0.99;
+
+		/**
+		 * The default <code>IStyleProvider</code> for all <code>Panel</code>
+		 * components.
+		 *
+		 * @default null
+		 * @see feathers.core.FeathersControl#styleProvider
+		 */
+		public static var styleProvider:IStyleProvider;
+
+		/**
 		 * @private
 		 */
 		protected static const INVALIDATION_FLAG_HEADER_FACTORY:String = "headerFactory";
@@ -212,6 +236,14 @@ package feathers.controls
 		 * @see feathers.core.IFeathersControl#nameList
 		 */
 		protected var footerName:String = DEFAULT_CHILD_NAME_FOOTER;
+
+		/**
+		 * @private
+		 */
+		override protected function get defaultStyleProvider():IStyleProvider
+		{
+			return Panel.styleProvider;
+		}
 
 		/**
 		 * @private
@@ -742,7 +774,7 @@ package feathers.controls
 			const factory:Function = this._headerFactory != null ? this._headerFactory : defaultHeaderFactory;
 			const headerName:String = this._customHeaderName != null ? this._customHeaderName : this.headerName;
 			this.header = IFeathersControl(factory());
-			this.header.nameList.add(headerName);
+			this.header.styleNameList.add(headerName);
 			this.header.addEventListener(FeathersEventType.RESIZE, header_resizeHandler);
 			displayHeader = DisplayObject(this.header);
 			this.addRawChild(displayHeader);
@@ -777,7 +809,7 @@ package feathers.controls
 			}
 			const footerName:String = this._customFooterName != null ? this._customFooterName : this.footerName;
 			this.footer = IFeathersControl(this._footerFactory());
-			this.footer.nameList.add(footerName);
+			this.footer.styleNameList.add(footerName);
 			this.footer.addEventListener(FeathersEventType.RESIZE, footer_resizeHandler);
 			displayFooter = DisplayObject(this.footer);
 			this.addRawChild(displayFooter);

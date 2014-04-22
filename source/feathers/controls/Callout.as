@@ -12,6 +12,7 @@ package feathers.controls
 	import feathers.core.IValidating;
 	import feathers.core.PopUpManager;
 	import feathers.events.FeathersEventType;
+	import feathers.skins.IStyleProvider;
 	import feathers.utils.display.getDisplayObjectDepthFromStage;
 
 	import flash.events.KeyboardEvent;
@@ -30,6 +31,21 @@ package feathers.controls
 
 	/**
 	 * Dispatched when the callout is closed.
+	 *
+	 * <p>The properties of the event object have the following values:</p>
+	 * <table class="innertable">
+	 * <tr><th>Property</th><th>Value</th></tr>
+	 * <tr><td><code>bubbles</code></td><td>false</td></tr>
+	 * <tr><td><code>currentTarget</code></td><td>The Object that defines the
+	 *   event listener that handles the event. For example, if you use
+	 *   <code>myButton.addEventListener()</code> to register an event listener,
+	 *   myButton is the value of the <code>currentTarget</code>.</td></tr>
+	 * <tr><td><code>data</code></td><td>null</td></tr>
+	 * <tr><td><code>target</code></td><td>The Object that dispatched the event;
+	 *   it is not always the Object listening for the event. Use the
+	 *   <code>currentTarget</code> property to always access the Object
+	 *   listening for the event.</td></tr>
+	 * </table>
 	 *
 	 * @eventType starling.events.Event.CLOSE
 	 */
@@ -62,6 +78,15 @@ package feathers.controls
 	 */
 	public class Callout extends FeathersControl
 	{
+		/**
+		 * The default <code>IStyleProvider</code> for all <code>Callout</code>
+		 * components.
+		 *
+		 * @default null
+		 * @see feathers.core.FeathersControl#styleProvider
+		 */
+		public static var styleProvider:IStyleProvider;
+
 		/**
 		 * The callout may be positioned on any side of the origin region.
 		 *
@@ -165,6 +190,11 @@ package feathers.controls
 		DIRECTION_TO_FUNCTION[DIRECTION_RIGHT] = positionToRightOfOrigin;
 		DIRECTION_TO_FUNCTION[DIRECTION_VERTICAL] = positionAboveOrBelowOrigin;
 		DIRECTION_TO_FUNCTION[DIRECTION_HORIZONTAL] = positionToLeftOrRightOfOrigin;
+
+		/**
+		 * @private
+		 */
+		protected static const FUZZY_CONTENT_DIMENSIONS_PADDING:Number = 0.000001;
 
 		/**
 		 * The padding between a callout and the top edge of the stage when the
@@ -561,6 +591,7 @@ package feathers.controls
 		 */
 		public function Callout()
 		{
+			super();
 			this.addEventListener(Event.ADDED_TO_STAGE, callout_addedToStageHandler);
 		}
 
@@ -651,6 +682,14 @@ package feathers.controls
 		 * @private
 		 */
 		protected var _isReadyToClose:Boolean = false;
+
+		/**
+		 * @private
+		 */
+		override protected function get defaultStyleProvider():IStyleProvider
+		{
+			return Callout.styleProvider;
+		}
 
 		/**
 		 * @private
@@ -1574,11 +1613,17 @@ package feathers.controls
 		 */
 		override protected function draw():void
 		{
-			const dataInvalid:Boolean = this.isInvalid(INVALIDATION_FLAG_DATA);
+			var dataInvalid:Boolean = this.isInvalid(INVALIDATION_FLAG_DATA);
 			var sizeInvalid:Boolean = this.isInvalid(INVALIDATION_FLAG_SIZE);
-			const stateInvalid:Boolean = this.isInvalid(INVALIDATION_FLAG_STATE);
-			const stylesInvalid:Boolean = this.isInvalid(INVALIDATION_FLAG_STYLES);
-			const originInvalid:Boolean = this.isInvalid(INVALIDATION_FLAG_ORIGIN);
+			var stateInvalid:Boolean = this.isInvalid(INVALIDATION_FLAG_STATE);
+			var stylesInvalid:Boolean = this.isInvalid(INVALIDATION_FLAG_STYLES);
+			var originInvalid:Boolean = this.isInvalid(INVALIDATION_FLAG_ORIGIN);
+
+			if(sizeInvalid)
+			{
+				this._lastGlobalBoundsOfOrigin = null;
+				originInvalid = true;
+			}
 
 			if(originInvalid)
 			{
@@ -1757,12 +1802,12 @@ package feathers.controls
 		 */
 		protected function layoutChildren():void
 		{
-			const xPosition:Number = (this._leftArrowSkin && this._arrowPosition == ARROW_POSITION_LEFT) ? this._leftArrowSkin.width + this._leftArrowGap : 0;
-			const yPosition:Number = (this._topArrowSkin &&  this._arrowPosition == ARROW_POSITION_TOP) ? this._topArrowSkin.height + this._topArrowGap : 0;
-			const widthOffset:Number = (this._rightArrowSkin && this._arrowPosition == ARROW_POSITION_RIGHT) ? this._rightArrowSkin.width + this._rightArrowGap : 0;
-			const heightOffset:Number = (this._bottomArrowSkin && this._arrowPosition == ARROW_POSITION_BOTTOM) ? this._bottomArrowSkin.height + this._bottomArrowGap : 0;
-			const backgroundWidth:Number = this.actualWidth - xPosition - widthOffset;
-			const backgroundHeight:Number = this.actualHeight - yPosition - heightOffset;
+			var xPosition:Number = (this._leftArrowSkin && this._arrowPosition == ARROW_POSITION_LEFT) ? this._leftArrowSkin.width + this._leftArrowGap : 0;
+			var yPosition:Number = (this._topArrowSkin &&  this._arrowPosition == ARROW_POSITION_TOP) ? this._topArrowSkin.height + this._topArrowGap : 0;
+			var widthOffset:Number = (this._rightArrowSkin && this._arrowPosition == ARROW_POSITION_RIGHT) ? this._rightArrowSkin.width + this._rightArrowGap : 0;
+			var heightOffset:Number = (this._bottomArrowSkin && this._arrowPosition == ARROW_POSITION_BOTTOM) ? this._bottomArrowSkin.height + this._bottomArrowGap : 0;
+			var backgroundWidth:Number = this.actualWidth - xPosition - widthOffset;
+			var backgroundHeight:Number = this.actualHeight - yPosition - heightOffset;
 			if(this._backgroundSkin)
 			{
 				this._backgroundSkin.x = xPosition;
@@ -1803,15 +1848,21 @@ package feathers.controls
 			{
 				this._content.x = xPosition + this._paddingLeft;
 				this._content.y = yPosition + this._paddingTop;
-				const oldIgnoreContentResize:Boolean = this._ignoreContentResize;
+				var oldIgnoreContentResize:Boolean = this._ignoreContentResize;
 				this._ignoreContentResize = true;
-				const contentWidth:Number = backgroundWidth - this._paddingLeft - this._paddingRight;
-				if(this._content.width != contentWidth)
+				var contentWidth:Number = backgroundWidth - this._paddingLeft - this._paddingRight;
+				var difference:Number = Math.abs(this._content.width - contentWidth);
+				//instead of !=, we do some fuzzy math to account for possible
+				//floating point errors.
+				if(difference > FUZZY_CONTENT_DIMENSIONS_PADDING)
 				{
 					this._content.width = contentWidth;
 				}
-				const contentHeight:Number = backgroundHeight - this._paddingTop - this._paddingBottom;
-				if(this._content.height != contentHeight)
+				var contentHeight:Number = backgroundHeight - this._paddingTop - this._paddingBottom;
+				difference = Math.abs(this._content.height - contentHeight);
+				//instead of !=, we do some fuzzy math to account for possible
+				//floating point errors.
+				if(difference > FUZZY_CONTENT_DIMENSIONS_PADDING)
 				{
 					this._content.height = contentHeight;
 				}
@@ -1829,7 +1880,7 @@ package feathers.controls
 				return;
 			}
 			this._origin.getBounds(Starling.current.stage, HELPER_RECT);
-			const hasGlobalBounds:Boolean = this._lastGlobalBoundsOfOrigin != null;
+			var hasGlobalBounds:Boolean = this._lastGlobalBoundsOfOrigin != null;
 			if(!hasGlobalBounds || !this._lastGlobalBoundsOfOrigin.equals(HELPER_RECT))
 			{
 				if(!hasGlobalBounds)

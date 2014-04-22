@@ -53,7 +53,7 @@ package feathers.controls.supportClasses
 		private var _text:String = "";
 
 		/**
-		 * @inheritDoc
+		 * @see feathers.controls.ScrollText#text
 		 */
 		public function get text():String
 		{
@@ -83,7 +83,7 @@ package feathers.controls.supportClasses
 		private var _isHTML:Boolean = false;
 
 		/**
-		 * Determines if the TextField should display the text as HTML or not.
+		 * @see feathers.controls.ScrollText#isHTML
 		 */
 		public function get isHTML():Boolean
 		{
@@ -109,9 +109,7 @@ package feathers.controls.supportClasses
 		private var _textFormat:TextFormat;
 
 		/**
-		 * The font and styles used to draw the text.
-		 *
-		 * @see flash.text.TextFormat
+		 * @see feathers.controls.ScrollText#textFormat
 		 */
 		public function get textFormat():TextFormat
 		{
@@ -134,12 +132,36 @@ package feathers.controls.supportClasses
 		/**
 		 * @private
 		 */
+		private var _disabledTextFormat:TextFormat;
+
+		/**
+		 * @see feathers.controls.ScrollText#disabledTextFormat
+		 */
+		public function get disabledTextFormat():TextFormat
+		{
+			return this._disabledTextFormat;
+		}
+
+		/**
+		 * @private
+		 */
+		public function set disabledTextFormat(value:TextFormat):void
+		{
+			if(this._disabledTextFormat == value)
+			{
+				return;
+			}
+			this._disabledTextFormat = value;
+			this.invalidate(INVALIDATION_FLAG_STYLES);
+		}
+
+		/**
+		 * @private
+		 */
 		protected var _styleSheet:StyleSheet;
 
 		/**
-		 * The <code>StyleSheet</code> object to pass to the TextField.
-		 *
-		 * @see flash.text.StyleSheet
+		 * @see feathers.controls.ScrollText#styleSheet
 		 */
 		public function get styleSheet():StyleSheet
 		{
@@ -165,9 +187,7 @@ package feathers.controls.supportClasses
 		private var _embedFonts:Boolean = false;
 
 		/**
-		 * Determines if the TextField should use an embedded font or not.
-		 *
-		 * @see flash.text.TextField#embedFonts
+		 * @see feathers.controls.ScrollText#embedFonts
 		 */
 		public function get embedFonts():Boolean
 		{
@@ -193,9 +213,7 @@ package feathers.controls.supportClasses
 		private var _antiAliasType:String = AntiAliasType.ADVANCED;
 
 		/**
-		 * Same as the TextField property with the same name.
-		 *
-		 * @see flash.text.TextField#antiAliasType
+		 * @see feathers.controls.ScrollText#antiAliasType
 		 */
 		public function get antiAliasType():String
 		{
@@ -221,9 +239,7 @@ package feathers.controls.supportClasses
 		private var _background:Boolean = false;
 
 		/**
-		 * Same as the TextField property with the same name.
-		 *
-		 * @see flash.text.TextField#background
+		 * @see feathers.controls.ScrollText#background
 		 */
 		public function get background():Boolean
 		{
@@ -249,9 +265,7 @@ package feathers.controls.supportClasses
 		private var _backgroundColor:uint = 0xffffff;
 
 		/**
-		 * Same as the TextField property with the same name.
-		 *
-		 * @see flash.text.TextField#backgroundColor
+		 * @see feathers.controls.ScrollText#backgroundColor
 		 */
 		public function get backgroundColor():uint
 		{
@@ -277,9 +291,7 @@ package feathers.controls.supportClasses
 		private var _border:Boolean = false;
 
 		/**
-		 * Same as the TextField property with the same name.
-		 *
-		 * @see flash.text.TextField#border
+		 * @see feathers.controls.ScrollText#border
 		 */
 		public function get border():Boolean
 		{
@@ -305,9 +317,7 @@ package feathers.controls.supportClasses
 		private var _borderColor:uint = 0x000000;
 
 		/**
-		 * Same as the TextField property with the same name.
-		 *
-		 * @see flash.text.TextField#borderColor
+		 * @see feathers.controls.ScrollText#borderColor
 		 */
 		public function get borderColor():uint
 		{
@@ -333,9 +343,7 @@ package feathers.controls.supportClasses
 		private var _condenseWhite:Boolean = false;
 
 		/**
-		 * Same as the TextField property with the same name.
-		 *
-		 * @see flash.text.TextField#condenseWhite
+		 * @see feathers.controls.ScrollText#condenseWhite
 		 */
 		public function get condenseWhite():Boolean
 		{
@@ -361,9 +369,7 @@ package feathers.controls.supportClasses
 		private var _displayAsPassword:Boolean = false;
 
 		/**
-		 * Same as the TextField property with the same name.
-		 *
-		 * @see flash.text.TextField#displayAsPassword
+		 * @see feathers.controls.ScrollText#displayAsPassword
 		 */
 		public function get displayAsPassword():Boolean
 		{
@@ -389,9 +395,7 @@ package feathers.controls.supportClasses
 		private var _gridFitType:String = GridFitType.PIXEL;
 
 		/**
-		 * Same as the TextField property with the same name.
-		 *
-		 * @see flash.text.TextField#gridFitType
+		 * @see feathers.controls.ScrollText#gridFitType
 		 */
 		public function get gridFitType():String
 		{
@@ -417,9 +421,7 @@ package feathers.controls.supportClasses
 		private var _sharpness:Number = 0;
 
 		/**
-		 * Same as the TextField property with the same name.
-		 *
-		 * @see flash.text.TextField#sharpness
+		 * @see feathers.controls.ScrollText#sharpness
 		 */
 		public function get sharpness():Number
 		{
@@ -445,9 +447,7 @@ package feathers.controls.supportClasses
 		private var _thickness:Number = 0;
 
 		/**
-		 * Same as the TextField property with the same name.
-		 *
-		 * @see flash.text.TextField#thickness
+		 * @see feathers.controls.ScrollText#thickness
 		 */
 		public function get thickness():Number
 		{
@@ -811,7 +811,11 @@ package feathers.controls.supportClasses
 				else
 				{
 					this._textField.styleSheet = null;
-					if(this._textFormat)
+					if(!this._isEnabled && this._disabledTextFormat)
+					{
+						this._textField.defaultTextFormat = this._disabledTextFormat;
+					}
+					else if(this._textFormat)
 					{
 						this._textField.defaultTextFormat = this._textFormat;
 					}

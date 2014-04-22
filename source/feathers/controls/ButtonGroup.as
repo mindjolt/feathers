@@ -14,6 +14,7 @@ package feathers.controls
 	import feathers.layout.LayoutBoundsResult;
 	import feathers.layout.VerticalLayout;
 	import feathers.layout.ViewPortBounds;
+	import feathers.skins.IStyleProvider;
 
 	import starling.display.DisplayObject;
 	import starling.events.Event;
@@ -37,6 +38,22 @@ package feathers.controls
 	 * {
 	 *    trace( "The button with label \"" + data.label + "\" was triggered." );
 	 * }</listing>
+	 *
+	 * <p>The properties of the event object have the following values:</p>
+	 * <table class="innertable">
+	 * <tr><th>Property</th><th>Value</th></tr>
+	 * <tr><td><code>bubbles</code></td><td>false</td></tr>
+	 * <tr><td><code>currentTarget</code></td><td>The Object that defines the
+	 *   event listener that handles the event. For example, if you use
+	 *   <code>myButton.addEventListener()</code> to register an event listener,
+	 *   myButton is the value of the <code>currentTarget</code>.</td></tr>
+	 * <tr><td><code>data</code></td><td>The item associated with the button
+	 *   that was triggered.</td></tr>
+	 * <tr><td><code>target</code></td><td>The Object that dispatched the event;
+	 *   it is not always the Object listening for the event. Use the
+	 *   <code>currentTarget</code> property to always access the Object
+	 *   listening for the event.</td></tr>
+	 * </table>
 	 *
 	 * @eventType starling.events.Event.TRIGGERED
 	 */
@@ -62,6 +79,15 @@ package feathers.controls
 	 */
 	public class ButtonGroup extends FeathersControl
 	{
+		/**
+		 * The default <code>IStyleProvider</code> for all <code>ButtonGroup</code>
+		 * components.
+		 *
+		 * @default null
+		 * @see feathers.core.FeathersControl#styleProvider
+		 */
+		public static var styleProvider:IStyleProvider;
+
 		/**
 		 * @private
 		 */
@@ -205,6 +231,7 @@ package feathers.controls
 		 */
 		public function ButtonGroup()
 		{
+			super();
 		}
 
 		/**
@@ -277,6 +304,14 @@ package feathers.controls
 		 * @private
 		 */
 		protected var inactiveButtons:Vector.<Button> = new <Button>[];
+
+		/**
+		 * @private
+		 */
+		override protected function get defaultStyleProvider():IStyleProvider
+		{
+			return ButtonGroup.styleProvider;
+		}
 
 		/**
 		 * @private
@@ -475,7 +510,7 @@ package feathers.controls
 		 *
 		 * @see #VERTICAL_ALIGN_TOP
 		 * @see #VERTICAL_ALIGN_MIDDLE
-		 * @see #VERTICAL_ALIGN_RIGHT
+		 * @see #VERTICAL_ALIGN_BOTTOM
 		 * @see #VERTICAL_ALIGN_JUSTIFY
 		 */
 		public function get verticalAlign():String
@@ -1521,15 +1556,15 @@ package feathers.controls
 				button = Button(factory());
 				if(this._customFirstButtonName)
 				{
-					button.nameList.add(this._customFirstButtonName);
+					button.styleNameList.add(this._customFirstButtonName);
 				}
 				else if(this._customButtonName)
 				{
-					button.nameList.add(this._customButtonName);
+					button.styleNameList.add(this._customButtonName);
 				}
 				else
 				{
-					button.nameList.add(this.firstButtonName);
+					button.styleNameList.add(this.firstButtonName);
 				}
 				this.addChild(button);
 			}
@@ -1562,15 +1597,15 @@ package feathers.controls
 				button = Button(factory());
 				if(this._customLastButtonName)
 				{
-					button.nameList.add(this._customLastButtonName);
+					button.styleNameList.add(this._customLastButtonName);
 				}
 				else if(this._customButtonName)
 				{
-					button.nameList.add(this._customButtonName);
+					button.styleNameList.add(this._customButtonName);
 				}
 				else
 				{
-					button.nameList.add(this.lastButtonName);
+					button.styleNameList.add(this.lastButtonName);
 				}
 				this.addChild(button);
 			}
@@ -1597,11 +1632,11 @@ package feathers.controls
 				var button:Button = this._buttonFactory();
 				if(this._customButtonName)
 				{
-					button.nameList.add(this._customButtonName);
+					button.styleNameList.add(this._customButtonName);
 				}
 				else
 				{
-					button.nameList.add(this.buttonName);
+					button.styleNameList.add(this.buttonName);
 				}
 				this.addChild(button);
 			}
